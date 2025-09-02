@@ -1,4 +1,4 @@
-This is a generative ai chatbot that almost answer all the questions the user asked . It uses JSON files to store user data and chat history. To improve efficient of answer retriving I used Cache concept in this code.
+This is a generative ai chatbot that almost will answer all the questions the user asked . It uses JSON files to store user data and chat history. To improve efficient of answer retriving, I used Cache concept in this code.
 
 
 USE ANACONDA COMMAND PROMPT FOR WHOLE THIS PROCESS
