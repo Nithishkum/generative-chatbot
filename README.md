@@ -20,6 +20,8 @@ ________________
 
 pip install streamlit langchain langchain-community fuzzywuzzy python-Levenshtein
 
+you should give your stability api key for image generation at 93rd line --> api_key = os.getenv("STABILITY_API_KEY", "YOUR-API-HERE")
+
 
 
 
