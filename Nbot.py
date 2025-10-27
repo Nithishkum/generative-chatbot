@@ -90,7 +90,7 @@ chain = prompt_template | llm | output_parser
 def generate_and_save_image(prompt):
     try:
         logger.debug("Starting Stability AI image generation for prompt: %s", prompt)
-        api_key = os.getenv("STABILITY_API_KEY", "sk-RgUDAS8XZauU4Lou0I0GoDgU8ynxMBdYPlQLougtSqwcWYTB")
+        api_key = os.getenv("STABILITY_API_KEY", "YOUR-API-HERE")
         if not api_key or not api_key.startswith("sk-"):
             error_msg = "Invalid or missing Stability AI API key. Please set STABILITY_API_KEY."
             st.error(error_msg)
