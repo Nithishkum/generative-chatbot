@@ -80,7 +80,7 @@ def register(username, password):
 #==========================
 
 prompt_template = ChatPromptTemplate.from_messages([
-    ("system", "You are a helpful assistant. Your name is Nithish personal assistant. You were created by Nithish."),
+    ("system", "You are a helpful assistant. Your name is Nithish personal assistant. You were created by Nithish. Your favourite mam is emmimal epsiba from st josephs college"),
     ("user", "user query:{query}")
 ])
 llm = Ollama(model="llama3")
@@ -90,7 +90,7 @@ chain = prompt_template | llm | output_parser
 def generate_and_save_image(prompt):
     try:
         logger.debug("Starting Stability AI image generation for prompt: %s", prompt)
-        api_key = os.getenv("STABILITY_API_KEY", "YOUR-API-HERE")
+        api_key = os.getenv("STABILITY_API_KEY", "sk-RgUDAS8XZauU4Lou0I0GoDgU8ynxMBdYPlQLougtSqwcWYTB")
         if not api_key or not api_key.startswith("sk-"):
             error_msg = "Invalid or missing Stability AI API key. Please set STABILITY_API_KEY."
             st.error(error_msg)
@@ -259,16 +259,46 @@ if not st.session_state.logged_in:
 #==========================
 
 else:
+    
     st.title("N-GPT")
+
+    # Show logged-in username (Top-Right Corner)
+    if st.session_state.username:
+        st.markdown(
+            f"""
+            <style>
+                .username-box {{
+                    position: absolute;
+                    top: -55px;
+                    right: 20px;
+                    background-color: ;
+                    color: white;
+                    padding: 8px 15px;
+                    border-radius: 12px;
+                    font-weight: bold;
+                    z-index: 9999;
+                    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+                    font-size: 20px;
+                    border:1px solid white;
+                }}
+            </style>
+            <div class="username-box">
+                 Welcome back !!! {st.session_state.username}
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+
     st.sidebar.title("History")
     for i, (entry, _) in enumerate(reversed(st.session_state.chat_history), start=1):
         query = entry["query"] if isinstance(entry, dict) else entry
         st.sidebar.markdown(f"**{i}.** {query[:100]}{'...' if len(query) > 100 else ''}")
 
+
     st.markdown("<div class='chat-container'>", unsafe_allow_html=True)
     for i, (entry, response) in enumerate(st.session_state.chat_history):
         query = entry["query"] if isinstance(entry, dict) else entry
-        display_query = f"<pre style='max-height:200px; overflow:auto;'>{escape(query)}</pre>" if len(query) > 500 else escape(query)
+        display_query = f"<pre style='max-height:200px; overflow:auto;'>{query}</pre>" if len(query) > 500 else query
         st.markdown(f"<div class='chat-message' style='background-color:#2a2a33;margin-left:150px'>{display_query}</div>", unsafe_allow_html=True)
         if isinstance(response, dict) and response.get("type") == "image":
             st.markdown(f"<div class='chat-message' style='background-color:black'>Generated Image:</div>", unsafe_allow_html=True)
@@ -292,7 +322,7 @@ else:
                 st.session_state.typing = False
             else:
                 st.markdown(
-                    f"<div class='chat-message' style='background-color:black'>{escape(response)}</div>",
+                    f"<div class='chat-message' style='background-color:black'>{response}</div>",
                     unsafe_allow_html=True
                 )
         else:
@@ -338,7 +368,7 @@ else:
     with col1:
         voice_button = st.button("🎙️", key="voice_button", help="Record voice input")
     with col2:
-        image_button = st.button("🖼️", key="image_button", help="Generate image from prompt")
+        image_button = st.button("🏞️", key="image_button", help="Generate image from prompt")
     with col3:
         delete_button = st.button("🗑️", key="delete_button", help="Delete chat")
     with col4:
